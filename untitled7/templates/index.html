@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <title>welcome to search for notices</title>
+
+</head>
+<body>
+    <div class="container">
+        <h2>动力与机械学院通知条目</h2>
+        <form class="navbar-form" method="get" action="/search_name/">
+            <div class="form-group">
+                <input name="title" type="text" placeholder="名称" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success">搜索</button>
+        </form>
+            <ul class="nav nav-pills nav-stacked">
+                {%  for notice in notices %}
+                    <li role="presentation" data-toggle="modal" data-target="#myModal{{ notice.id }}"><a href="#">{{ notice.notice_title }}</a></li>
+                <div class="modal fade" id="myModal{{ notice.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    {{ notice.notice_title }}
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                {{ notice.notice_data }}
+                            </div>
+                            <div class="modal-footer">
+                                <p>图片: <a href="{{ notice.notice_picture }}">{{ notice.notice_picture }}</a></p>
+                                <p>时间: <a href="{{ notice.notice_time }}">{{ notice.notice_time }}</a></p>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                </button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                {% endfor %}
+            </ul>
+    </div>
+</body>
+</html>
